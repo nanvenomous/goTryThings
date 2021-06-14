@@ -3,6 +3,7 @@ package seriesconvergence
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func assertEqualInt(t *testing.T, actual int, expected int) {
@@ -36,7 +37,9 @@ func TestChainLength(t *testing.T) {
 
 func TestGetLongestChainLengthUnder_1000000(t *testing.T) {
 	expected := 837799
+	now := time.Now()
 	actual, _ := LongestChainUnder(1000000)
+	fmt.Printf("Simple memoized solution took %f Seconds\n", time.Since(now).Seconds())
 	assertEqualInt(t, expected, actual)
 }
 
