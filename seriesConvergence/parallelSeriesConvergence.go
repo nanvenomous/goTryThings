@@ -48,9 +48,12 @@ func ChainLengthParallel(mem *Memory, n int) int {
 func LongestChainParallelUnder(num int) (int, int) {
 	mem := NewMemory()
 	wg := sync.WaitGroup{}
+	sem := make(chan int, 2)
 
 	singleChain := func(i int) {
+		sem <- 1
 		ChainLengthParallel(mem, i)
+		<-sem
 		wg.Done()
 	}
 	for i := 1; i <= num; i++ {
